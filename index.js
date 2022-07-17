@@ -1,8 +1,7 @@
 const express = require('express')
 const app = express()
-const path = require('pathj')
 
-app.use(express.static('buiild'));
+app.use(express.static('build'));
 
 let notes = [
   {
