@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
-const path = require('path');
+const path = require('pathj')
 
-app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static('buiild'));
 
 let notes = [
   {
@@ -28,7 +28,7 @@ let notes = [
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/buid/index.html')
+  res.send('<h1>Hello World!</h1>')
 })
 
 const generateId = () => {
