@@ -1,6 +1,22 @@
 const express = require('express')
 const app = express()
 
+const mongoose = require('mongoose')
+
+// DO NOT SAVE YOUR PASSWORD TO GITHUB!!
+const url =
+  `mongodb+srv://willd20:@cluster0.tnx7z.mongodb.net/noteApp?retryWrites=true&w=majority`
+
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
 app.use(express.static('build'));
 
 let notes = [
@@ -59,7 +75,9 @@ app.post('/api/notes', (request, response) => {
 })
 
 app.get('/api/notes', (req, res) => {
-  res.json(notes)
+  Note.find({}).then(notes => {
+    res.json(notes)
+  })
 })
 
 app.delete('/api/notes/:id', (request, response) => {
